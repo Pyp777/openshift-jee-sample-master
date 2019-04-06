@@ -29,8 +29,8 @@ public class MessageController {
      * @return
      */
     @POST
-    @Path("/send/{message}")
-    public String sendMessage(@PathParam("message") String message) {
+    @Path("/send")
+    public String sendMessage(String message) {
     	return message + " is accepted...";
     }
     
