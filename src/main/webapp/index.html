@@ -7,7 +7,59 @@
 	<link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
+	<script type="text/javascript" >
+		function showResponse(text) {
+			document.getElementById("response").innerText = text;	
+		}
+		
+		function callStatus() {
+			console.log("calling status");
 
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					console.log("status change to " + this.readyState);
+					showResponse(this.responseText);
+				}
+
+			};
+			xhr.open("GET", "rest/message/status", true);
+			xhr.send();
+
+			//xhr.setRequestHeader("Content-type", "application/json");
+			//xhr.send("Your JSON Data Here");
+		}
+		
+		function callClear() {
+			console.log("calling clear statuc");
+
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					console.log("status change to " + this.readyState);
+					showResponse(this.responseText);
+				}
+			};
+			xhr.open("POST", "rest/message/clear", true);
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.send("");
+		}
+
+		function sendMessage() {
+			console.log("calling sendMessage");
+
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					console.log("status change to " + this.readyState);
+					showResponse(this.responseText);
+				}
+			};
+			xhr.open("POST", "rest/message/send", true);
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.send("{message: 'tralalala'}");
+		}
+	</script>
 	<section class='container'>
 		<hgroup>
 			<h1>Welcome to your JavaEE application on OpenShift from unknown
@@ -20,9 +72,15 @@
 				<section>
 					<h2>How to use this application</h2>
 					<p>
-						Press the buttoin!
-						<!--  <form action=""-->
-						<button>Tralala</button>
+						Press the button!
+						<!--  <form action="" -->
+						<button onclick="callStatus()">Status is...</button>
+						<button onclick="callClear()">Clear...</button>
+						<button onclick="sendMessage()">Message...</button>
+					</p>
+					<p>
+						<div id="response">
+						</div>
 					</p>
 				</section>
 			</section>
